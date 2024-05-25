@@ -1,15 +1,79 @@
 openapi: '3.0.2'
 info:
   title: Karetsaka API
-  version: '1.0'
+  version: '0.0.1'
 servers:
   - url: https://app.karetsaka.com/api/v1
 tags:
+  - name: Health
+  - name: Security
   - name: Users
   - name: Cars
   - name: Images
-  - name: Appointments
 paths:
+# ----------------- Health ------------------
+  '/ping':
+    get:
+      tags:
+        - Health 
+      summary: pong
+      operationId: ping
+      responses:
+        '200':
+          description: pong
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  '/dummy-table':
+    get:
+      tags:
+        - Health 
+      summary: dummy table
+      operationId: getDummyTable
+      responses:
+        '200':
+          description: dummy table
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dummy'
+
+# ----------------- Security ------------------
+  '/whoami':
+    get:
+      tags:
+        - Security
+      summary: Who am I? Tells you who you are.
+      operationId: whoami
+      responses:
+        '200':
+          description: Who you are
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
 
 # ----------------- Users ------------------
   /users:
@@ -18,44 +82,69 @@ paths:
         - Users
       summary: Get all users
       operationId: getUsers
+      parameters:
+        - name: page
+          in: query
+          schema:
+            $ref: '#/components/schemas/Page'
+          description: Set value to 1 by default if null is provided
+          required: false
+        - name: page_size
+          in: query
+          description: Set value to 15 by default if null is provided
+          schema:
+            $ref: '#/components/schemas/PageSize'
+          required: false
       responses:
-        200:
-          description: OK
+        '200':
+          description: list of users in the range of page
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
-
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
     put:
       tags:
         - Users
       summary: Create or Update users
-      operationId: createUpdateUsers
+      operationId: crupdateUsers
       requestBody:
         content:
           application/json:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/CreateUser'
+                $ref: '#/components/schemas/CrupdateUser'
       responses:
-        200:
-          description: OK
+        '200':
+          description: list of created users in the range of page
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        404:
-          description: NOT FOUND
-        500:
-          description: SERVER ERROR
-
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /users/{id}:
     get:
       tags:
@@ -70,18 +159,22 @@ paths:
             type: string
             format: uuid
       responses:
-        200:
-          description: OK
+        '200':
+          description: user by id
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        404:
-          description: NOT FOUND
-        500:
-          description: SERVER ERROR
-
-
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
 
 # ------------------ Cars ------------------
   /cars:
@@ -91,71 +184,68 @@ paths:
       summary: Get all cars
       operationId: getCars
       parameters:
-        - in: query
-          name: brand
-          required: false
+        - name: page
+          in: query
           schema:
-            type: string
-        - in: query
-          name: model
+            $ref: '#/components/schemas/Page'
+          description: Set value to 1 by default if null is provided
           required: false
+        - name: page_size
+          in: query
+          description: Set value to 15 by default if null is provided
           schema:
-            type: string
-        - in: query
-          name: type
+            $ref: '#/components/schemas/PageSize'
           required: false
-          schema:
-            type: string
-        - in: query
-          name: motorType
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: price
-          required: false
-          schema:
-            type: string
       responses:
-        200:
-          description: OK
+        '200':
+          description: list of cars in the range of page
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Car'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
-
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
     put:
       tags:
         - Cars
       summary: Create or Update cars
-      operationId: createUpdateCars
+      operationId: crupdateCars
       requestBody:
         content:
           application/json:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Car'
+                $ref: '#/components/schemas/CrupdateCar'
       responses:
-        200:
-          description: OK
+        '200':
+          description: list of created users in the range of page
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Car'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
-
+                  $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /cars/{id}:
     get:
       tags:
@@ -170,46 +260,67 @@ paths:
             type: string
             format: uuid
       responses:
-        200:
-          description: OK
+        '200':
+          description: car by id
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Car'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
+                $ref: '#/components/schemas/Car'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
 
-
-# ----------------- Images -----------------
+# ------------------ Images ------------------
   /images:
     get:
       tags:
         - Images
-      summary: Get all iamges
+      summary: Get all images
       operationId: getImages
+      parameters:
+        - name: page
+          in: query
+          schema:
+            $ref: '#/components/schemas/Page'
+          description: Set value to 1 by default if null is provided
+          required: false
+        - name: page_size
+          in: query
+          description: Set value to 15 by default if null is provided
+          schema:
+            $ref: '#/components/schemas/PageSize'
+          required: false
       responses:
-        200:
-          description: OK
+        '200':
+          description: list of images in the range of page
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Image'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
-
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
     put:
       tags:
         - Images
-      summary: Create or Update image (Attaching image to Car)
-      operationId: createUpdateImages
+      summary: Create or Update images
+      operationId: crupdateImages
       requestBody:
         content:
           application/json:
@@ -218,23 +329,28 @@ paths:
               items:
                 $ref: '#/components/schemas/Image'
       responses:
-        200:
-          description: OK
+        '200':
+          description: list of created images in the range of page
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Image'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
-
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /images/{id}:
     get:
       tags:
-        - Images
+        - Images 
       summary: Get image by id
       operationId: getImageById
       parameters:
@@ -245,97 +361,69 @@ paths:
             type: string
             format: uuid
       responses:
-        200:
-          description: OK
+        '200':
+          description: image by id
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Image'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
-
-
-# -------------- Appointment ---------------
-  /appointments:
-    get:
-      tags:
-        - Appointments
-      summary: Get all appointments
-      operationId: getAppointments
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Appointment'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
-
-    put:
-      tags:
-        - Appointments
-      summary: Create or Update appointment by id (Update Status)
-      operationId: createUpdateAppointments
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Appointment'
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Appointment'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
-
-  /appointments/{id}:
-    get:
-      tags:
-        - Appointments
-      summary: Get appointment by id
-      operationId: getAppointmentById
-      parameters:
-        - in: path
-          name: emailAdmin
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Appointment'
-        403:
-          description: FORBIDDEN
-        500:
-          description: SERVER ERROR
-
+                $ref: '#/components/schemas/Image'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
 
 components:
+  responses:
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestException'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotAuthorizedException'
+    '404':
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResourceNotFoundException'
+    '429':
+      description: Too many requests to the API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TooManyRequestsException'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalServerException'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
   schemas:
-    CreateUser:
+    Dummy:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    CrupdateUser:
       type: object
       properties:
         id:
@@ -345,27 +433,40 @@ components:
           type: string
         email:
           type: string
-        password:
+        createdAt:
           type: string
+          format: date-time
     User:
       type: object
+      allOf:
+        - $ref: "#/components/schemas/CrupdateUser"
+      properties:
+        picture:
+          type: string
+    CarMotorType: 
+      type: string 
+      enum: 
+        - GASOLINE
+        - DIESEL
+        - HYBRID
+        - ELECTRIC
+    CarBrand: 
+      type: object
       properties:
         id:
           type: string
           format: uuid
         name:
           type: string
-        email:
-          type: string
-
-    CreateCar:
+    CarBase:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
         description:
-          type: string
-        brand:
           type: string
         model:
           type: string
@@ -373,72 +474,86 @@ components:
           type: number
         color:
           type: string
-        motorType:
-          type: string
         power:
-          type: string
+          type: number 
         placeNumber:
           type: number
         status:
           type: boolean
         type:
           type: string
+        motorType:
+          $ref: "#/components/schemas/CarMotorType"
+    CrupdateCar:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/CarBase"
+      properties:
+        brand_id:
+          type: string
+          format: uuid
     Car:
       type: object
       allOf:
-        - properties:
-            id:
-              type: string
-              format: uuid
-        - allOf:
-          $ref: '#/components/schemas/CreateCar'
-
-    CreateImage:
+        - $ref: "#/components/schemas/CarBase"
+      properties:
+        brand:
+          $ref: "#/components/schemas/CarBrand"
+    
+    Image:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
+        productId:
+          type: string
+          format: uuid
         url:
           type: string
           format: link
-    Image:
-      type: object
-      allOf:
-        - properties:
-            id:
-              type: string
-              format: uuid
-            productId:
-              type: string
-              format: uuid
-        - allOf:
-          $ref: '#/components/schemas/CreateImage'
-
-    CreateAppointment:
+    
+    # ----------------- Exception ------------------
+    Exception:
       type: object
       properties:
-        name:
-          type: string
-        firstName:
-          type: string
-        email:
+        type:
           type: string
         message:
           type: string
-        contact:
-          type: string
-        appointmentDate:
-          type: string
-          format: date
-        status:
-          type: string
-        carId:
-          type: string
-          format: uuid
-    Appointment:
-      type: object
+    BadRequestException:
       allOf:
-        - properties:
-            id:
-              type: string
-              format: uuid
-        - allOf:
-          $ref: '#/components/schemas/CreateAppointment'
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: BadRequestException
+        message: Bad request
+    NotAuthorizedException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: NotAuthorizedException
+        message: Not authorized
+    ResourceNotFoundException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: ResourceNotFoundException
+        message: Resource of type <T> identified by <I> not found
+    TooManyRequestsException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: TooManyRequestsException
+        message: Too many requests
+    InternalServerException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: InternalServerException
+        message: Unexpected error
+    Page:
+      type: integer
+      description: Start at `1`
+    PageSize:
+      type: integer
+      description: Cannot exceed `500`
