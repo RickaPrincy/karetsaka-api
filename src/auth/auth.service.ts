@@ -29,4 +29,8 @@ export class AuthService {
             name, email, password
         });
     }
+
+    async whoami() {
+
+    }
 }
