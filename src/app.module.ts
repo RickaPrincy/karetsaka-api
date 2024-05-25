@@ -7,6 +7,7 @@ import {AuthModule} from "./auth/auth.module";
 import {CarsModule} from "./module/cars.module";
 import {ImagesModule} from "./module/images.module";
 import {AppointmentsModule} from "./module/appointments.module";
+import {HealthModule} from "./module/health.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import {AppointmentsModule} from "./module/appointments.module";
     CarsModule,
     ImagesModule,
     AppointmentsModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

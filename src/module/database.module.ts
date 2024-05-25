@@ -6,6 +6,7 @@ import {Appointment} from "src/model/appointment.entity";
 import {Car} from "src/model/car.entity";
 import {Image} from "src/model/image.entity";
 import {User} from "src/model/user.entity";
+import {Dummy} from "src/model/dummy.entity";
 
 config();
 const configService = new ConfigService();
@@ -19,7 +20,7 @@ const configService = new ConfigService();
       username: configService.get("POSTGRES_USER"),
       password: configService.get("POSTGRES_PASSWORD"),
       database: configService.get("POSTGRES_DATABASE"),
-      entities: [User, Car, Image, Appointment],
+      entities: [Dummy, User, Car, Image, Appointment],
       synchronize: true,
     }),
   ],
