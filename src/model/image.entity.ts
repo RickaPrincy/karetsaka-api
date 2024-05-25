@@ -1,13 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Image {
-    @PrimaryGeneratedColumn("uuid")
-    id?: string;
+  @PrimaryGeneratedColumn("uuid")
+  id?: string;
 
-    @Column()
-    url: string;
+  @Column()
+  url: string;
 
-    @Column()
-    productId: string;
+  @Column()
+  productId: string;
 }

@@ -1,40 +1,40 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Car {
-    @PrimaryGeneratedColumn("uuid")
-    id?: string;
+  @PrimaryGeneratedColumn("uuid")
+  id?: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    description?: string;
+  @Column()
+  description?: string;
 
-    @Column()
-    brand: string;
+  @Column()
+  brand: string;
 
-    @Column()
-    model: string;
+  @Column()
+  model: string;
 
-    @Column()
-    price: number;
+  @Column()
+  price: number;
 
-    @Column()
-    color: string;
+  @Column()
+  color: string;
 
-    @Column()
-    motorType: string;
+  @Column()
+  motorType: string;
 
-    @Column()
-    power: string;
+  @Column()
+  power: string;
 
-    @Column()
-    placeNumber: number;
+  @Column()
+  placeNumber: number;
 
-    @Column()
-    status: boolean;
+  @Column()
+  status: boolean;
 
-    @Column()
-    type: string;
+  @Column()
+  type: string;
 }
