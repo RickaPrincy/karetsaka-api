@@ -1,5 +1,4 @@
 import {ConfigModule, ConfigService} from "@nestjs/config";
-import {config} from "dotenv";
 import {Module} from "@nestjs/common";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {Appointment} from "src/model/appointment.entity";
@@ -22,4 +21,5 @@ import {Dummy} from "src/model/dummy.entity";
     }),
   ],
 })
+
 export class DatabaseModule {}
