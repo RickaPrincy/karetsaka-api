@@ -1,12 +1,12 @@
 import {Controller, Get, UseGuards} from "@nestjs/common";
 import {ApiTags} from "@nestjs/swagger";
-import {FirebaseAuthGuard} from "src/auth/guards/firebase.auth.guard";
+import {FirebaseAuthGuard} from "src/auth/guards";
 import {Dummy} from "src/model/dummy.entity";
 import {HealthService} from "src/service/health.service";
-import {ApiKaretsaka} from "./utils/api-karetsaka.decorator";
+import {ApiKaretsaka} from "../decorators";
 
 @Controller()
-@ApiTags("Heatlth")
+@ApiTags("Health")
 export class HealthController {
   constructor(private readonly healthService: HealthService) {}
 

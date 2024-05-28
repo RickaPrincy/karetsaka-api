@@ -1,17 +1,20 @@
-import {Injectable, UnauthorizedException} from "@nestjs/common";
-import {SigninDto} from "src/model/dto/SigninDto";
-import {SignupDto} from "src/model/dto/SignupDto";
+import {Injectable} from "@nestjs/common";
+import {FirebaseAuthUser} from "src/service/firebase/type";
 import {UserService} from "src/service/user.service";
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly _userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
-  async signin(_signinDto: SigninDto) {
-    throw new UnauthorizedException();
-  }
+  async whoami(firebaseUser: FirebaseAuthUser) {
+    const user = await this.userService.findById(firebaseUser.uid);
+    if (user) return user;
 
-  async signup(_signupDto: SignupDto) {
-    throw new UnauthorizedException();
+    return this.userService.saveUser({
+      id: firebaseUser.uid,
+      email: firebaseUser.email,
+      name: firebaseUser.email,
+      picture: firebaseUser.picture,
+    });
   }
 }

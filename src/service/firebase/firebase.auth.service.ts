@@ -1,4 +1,4 @@
-import {Inject, Injectable} from "@nestjs/common";
+import {Injectable} from "@nestjs/common";
 import {FirebaseConfigService} from "./firebase.config.service";
 import {FirebaseAuthUser} from "./type";
 
@@ -9,7 +9,7 @@ export class FirebaseAuthService {
   async getUserByTokenId(tokenId: string): Promise<FirebaseAuthUser> {
     return this.firebaseConfig
       .getAuth()
-      .verifySessionCookie(tokenId)
+      .verifyIdToken(tokenId)
       .then((decodedToken): FirebaseAuthUser => {
         return {
           email: decodedToken.email,

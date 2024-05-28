@@ -1,7 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {User} from "src/model/user.entity";
 import {Repository} from "typeorm";
+import {User} from "src/model/user.entity";
 
 @Injectable()
 export class UserService {
@@ -21,7 +21,7 @@ export class UserService {
     return await this.repository.save(user);
   }
 
-  async findOneByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User> {
     return await this.repository.findOneBy({email: email});
   }
 }
