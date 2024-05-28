@@ -21,5 +21,4 @@ import {Dummy} from "src/model/dummy.entity";
     }),
   ],
 })
-
 export class DatabaseModule {}

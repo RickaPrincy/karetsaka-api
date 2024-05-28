@@ -12,9 +12,9 @@ export class FirebaseConfigService {
   constructor() {
     const firebaseConfig = {
       credential: admin.credential.cert(this.getConfig()),
-      databaseURL: this.getDatabaseUrl()
+      databaseURL: this.getDatabaseUrl(),
     };
-    
+
     this.firebaseApp = admin.initializeApp(firebaseConfig);
   }
 
