@@ -1,12 +1,14 @@
 import {Module} from "@nestjs/common";
-import {DatabaseModule} from "./module/database/database.module";
-import {UserModule} from "./module/user.module";
+import {DatabaseModule} from "./module/database";
 import {AuthModule} from "./auth/auth.module";
-import {CarsModule} from "./module/cars.module";
-import {ImagesModule} from "./module/images.module";
-import {AppointmentsModule} from "./module/appointments.module";
-import {HealthModule} from "./module/health.module";
-import {FirebaseModule} from "./module/firebase.module";
+import {
+  AppointmentsModule,
+  FirebaseModule,
+  HealthModule,
+  ImagesModule,
+  UserModule,
+  CarsModule,
+} from "./module";
 
 @Module({
   imports: [

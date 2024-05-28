@@ -1,8 +1,8 @@
 import {Controller, Get, UseGuards} from "@nestjs/common";
 import {ApiTags} from "@nestjs/swagger";
 import {FirebaseAuthGuard} from "src/auth/guards";
-import {Dummy} from "src/model/dummy.entity";
-import {HealthService} from "src/service/health.service";
+import {Dummy} from "src/model";
+import {HealthService} from "src/service";
 import {ApiKaretsaka} from "../decorators";
 
 @Controller()

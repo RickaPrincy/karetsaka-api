@@ -1,6 +1,6 @@
-import {Controller, Get, Req, UseGuards} from "@nestjs/common";
+import {Controller, Get, UseGuards} from "@nestjs/common";
 import {AuthService} from "./auth.service";
-import {ApiOperation, ApiTags} from "@nestjs/swagger";
+import {ApiTags} from "@nestjs/swagger";
 import {FirebaseAuthGuard} from "./guards/firebase.auth.guard";
 import {AuthenticatedUser} from "./decorators";
 import {ApiKaretsaka} from "src/decorators";
