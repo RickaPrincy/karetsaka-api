@@ -2,6 +2,7 @@ import {
   CanActivate,
   ExecutionContext,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from "@nestjs/common";
 import {IncomingHttpHeaders} from "http";
@@ -28,9 +29,9 @@ export class FirebaseAuthGuard implements CanActivate {
     }
   }
 
-  private extractToken(request: {headers: IncomingHttpHeaders}): string | null {
+  private extractToken(headers: IncomingHttpHeaders): string | null {
     const BEARER_TYPE = "Bearer";
-    const authorizationHeader = request.headers?.authorization || "";
+    const authorizationHeader = headers.authorization || "";
     const [tokenType, token] = authorizationHeader.split(" ");
 
     return tokenType === BEARER_TYPE ? token : null;

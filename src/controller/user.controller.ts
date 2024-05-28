@@ -15,6 +15,7 @@ export class UserController {
 
   @Get("/users")
   @UseGuards(FirebaseAuthGuard)
+  @ApiBearerAuth()
   @ApiPagination()
   @ApiKaretsaka({
     operationId: "getUsers",
@@ -26,6 +27,7 @@ export class UserController {
 
   @Get("/users/:id")
   @UseGuards(FirebaseAuthGuard)
+  @ApiBearerAuth()
   @ApiKaretsaka({
     operationId: "getUserById",
     type: User,

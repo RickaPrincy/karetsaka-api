@@ -1,6 +1,6 @@
 import {Controller, Get, UseGuards} from "@nestjs/common";
+import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {AuthService} from "./auth.service";
-import {ApiTags} from "@nestjs/swagger";
 import {FirebaseAuthGuard} from "./guards";
 import {AuthenticatedUser} from "./decorators";
 import {ApiKaretsaka} from "src/docs/decorators";
@@ -14,6 +14,7 @@ export class AuthController {
 
   @Get("/whoami")
   @UseGuards(FirebaseAuthGuard)
+  @ApiBearerAuth()
   @ApiKaretsaka({
     operationId: "whoami",
     type: User,
