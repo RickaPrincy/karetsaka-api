@@ -1,5 +1,11 @@
 import {Controller, Get, UseGuards} from "@nestjs/common";
-import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger";
 import {FirebaseAuthGuard} from "src/auth/guards";
 import {Dummy} from "src/model";
 import {HealthService} from "src/service";
@@ -13,7 +19,18 @@ export class HealthController {
   constructor(private readonly healthService: HealthService) {}
 
   @Get("/ping")
-  @ApiKaretsaka({operationId: "ping", type: "string"})
+  @ApiOperation({
+    operationId: "ping",
+  })
+  @ApiOkResponse({
+    content: {
+      "text/plain": {
+        schema: {
+          type: "string",
+        },
+      },
+    },
+  })
   async ping() {
     return "pong";
   }
