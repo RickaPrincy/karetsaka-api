@@ -1,5 +1,5 @@
 import {createParamDecorator, ExecutionContext} from "@nestjs/common";
-import {FirebaseAuthUser} from "src/service/firebase/type";
+import {FirebaseAuthUser} from "src/service/firebase";
 
 export const AuthenticatedUser = createParamDecorator(
   (_data: unknown, context: ExecutionContext): FirebaseAuthUser => {

@@ -1,11 +1,11 @@
 import {Controller, Get, UseGuards} from "@nestjs/common";
 import {AuthService} from "./auth.service";
 import {ApiTags} from "@nestjs/swagger";
-import {FirebaseAuthGuard} from "./guards/firebase.auth.guard";
+import {FirebaseAuthGuard} from "./guards";
 import {AuthenticatedUser} from "./decorators";
 import {ApiKaretsaka} from "src/decorators";
-import {User} from "src/model/user.entity";
-import {FirebaseAuthUser} from "src/service/firebase/type";
+import {User} from "src/model";
+import {FirebaseAuthUser} from "src/service/firebase";
 
 @Controller()
 @ApiTags("Security")

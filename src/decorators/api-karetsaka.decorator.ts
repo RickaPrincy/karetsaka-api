@@ -17,7 +17,7 @@ type ApiKaretsakaOptions = {
   operationOptions?: ApiOperationOptions;
 };
 
-class ApiForbiddenResponseErrorType {
+class ApiResponseError {
   @ApiProperty()
   private statusCode: number;
   @ApiProperty()
@@ -32,9 +32,9 @@ export function ApiKaretsaka({
   return applyDecorators(
     ApiOperation({...operationOptions, operationId}),
     ApiOkResponse({type}),
-    ApiForbiddenResponse({type: ApiForbiddenResponseErrorType}),
-    ApiInternalServerErrorResponse({type: ApiForbiddenResponseErrorType}),
-    ApiNotFoundResponse({type: ApiForbiddenResponseErrorType}),
-    ApiBadRequestResponse({type: ApiForbiddenResponseErrorType})
+    ApiForbiddenResponse({type: ApiResponseError }),
+    ApiInternalServerErrorResponse({type: ApiResponseError}),
+    ApiNotFoundResponse({type: ApiResponseError}),
+    ApiBadRequestResponse({type: ApiResponseError})
   );
 }
