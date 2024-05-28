@@ -14,10 +14,9 @@ function setupSwagger<T>(app: INestApplication<T>) {
     .addServer("https://karetsaka-api.adaptable.app")
     .addTag("Health")
     .addTag("Security")
+    .addTag("Users")
     .addTag("Cars")
-    .addSecurity("Firebase Authentification", {
-      type: "http",
-    })
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, openapiConfig);
   SwaggerModule.setup("docs", app, document);

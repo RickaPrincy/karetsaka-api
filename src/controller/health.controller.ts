@@ -1,9 +1,11 @@
 import {Controller, Get, UseGuards} from "@nestjs/common";
-import {ApiTags} from "@nestjs/swagger";
+import {ApiBearerAuth, ApiTags} from "@nestjs/swagger";
 import {FirebaseAuthGuard} from "src/auth/guards";
 import {Dummy} from "src/model";
 import {HealthService} from "src/service";
-import {ApiKaretsaka} from "../decorators";
+import {ApiKaretsaka} from "../docs/decorators";
+import {Pagination, PaginationParams} from "./decorators";
+import {ApiPagination} from "src/docs/decorators/api-pagination.decorator";
 
 @Controller()
 @ApiTags("Health")
@@ -17,15 +19,20 @@ export class HealthController {
   }
 
   @Get("/dummies")
+  @ApiPagination()
   @ApiKaretsaka({operationId: "getDummies", type: [Dummy]})
-  async getDummies(): Promise<Dummy[]> {
-    return this.healthService.getDummies();
+  async getDummies(
+    @Pagination() pagination: PaginationParams
+  ): Promise<Dummy[]> {
+    return this.healthService.getDummies(pagination);
   }
 
   @Get("/dummies/private")
   @UseGuards(FirebaseAuthGuard)
+  @ApiBearerAuth()
+  @ApiPagination()
   @ApiKaretsaka({operationId: "getPrivateDummies", type: [Dummy]})
-  async getPrivateDummies() {
-    return this.healthService.getDummies();
+  async getPrivateDummies(@Pagination() pagination: PaginationParams) {
+    return this.healthService.getDummies(pagination);
   }
 }

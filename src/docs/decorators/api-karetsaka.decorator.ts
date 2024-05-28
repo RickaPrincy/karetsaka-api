@@ -32,7 +32,7 @@ export function ApiKaretsaka({
   return applyDecorators(
     ApiOperation({...operationOptions, operationId}),
     ApiOkResponse({type}),
-    ApiForbiddenResponse({type: ApiResponseError }),
+    ApiForbiddenResponse({type: ApiResponseError}),
     ApiInternalServerErrorResponse({type: ApiResponseError}),
     ApiNotFoundResponse({type: ApiResponseError}),
     ApiBadRequestResponse({type: ApiResponseError})
