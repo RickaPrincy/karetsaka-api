@@ -2,7 +2,6 @@ import {
   CanActivate,
   ExecutionContext,
   Injectable,
-  Logger,
   UnauthorizedException,
 } from "@nestjs/common";
 import {IncomingHttpHeaders} from "http";
