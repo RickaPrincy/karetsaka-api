@@ -1,11 +1,9 @@
-import {Type, applyDecorators} from "@nestjs/common";
-import {ApiQuery} from "@nestjs/swagger";
+import {applyDecorators} from "@nestjs/common";
+import {ApiQuery, ApiQueryOptions} from "@nestjs/swagger";
 
-export type ApiCriteriaType = Type<unknown> | string;
+export type ApiCriteriaOptions = Partial<ApiQueryOptions>;
 
-export function ApiCriteria<T>(
-  ...keys: {name: string; type: ApiCriteriaType}[]
-) {
+export function ApiCriteria(...keys: ApiCriteriaOptions[]) {
   const queries = keys.map((key) => {
     return ApiQuery({
       ...key,

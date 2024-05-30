@@ -2,11 +2,11 @@ import {PaginationParams} from "src/controller/decorators";
 import {Repository} from "typeorm";
 import {createPagination} from "./create-pagination";
 
-export type Criteria<T> = Partial<T> & Record<string, any>;
+export type Criteria = Record<string, any>;
 
 export const findByCriteria = async <T>(
   repository: Repository<T>,
-  criteria: Criteria<T>,
+  criteria: Criteria,
   pagination: PaginationParams
 ) => {
   const queryBuilder = repository.createQueryBuilder();

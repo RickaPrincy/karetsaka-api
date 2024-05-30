@@ -28,7 +28,6 @@ export class UserController {
   }
 
   @Get("/users/:id")
-  @Authenticated()
   @ApiKaretsaka({
     operationId: "getUserById",
     type: User,

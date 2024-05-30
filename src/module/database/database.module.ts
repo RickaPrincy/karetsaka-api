@@ -1,7 +1,7 @@
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {Module} from "@nestjs/common";
 import {TypeOrmModule} from "@nestjs/typeorm";
-import {Appointment, Car, Dummy, User, Image} from "src/model";
+import {Appointment, Car, Dummy, User, Image, CarBrand} from "src/model";
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import {Appointment, Car, Dummy, User, Image} from "src/model";
       useFactory: (configService: ConfigService) => ({
         type: "postgres",
         url: configService.get("DATABASE_URL"),
-        entities: [Dummy, User, Car, Image, Appointment],
+        entities: [Dummy, User, CarBrand, Car, Image, Appointment],
         //WARNING: remove synchronize on prod
         synchronize: true,
       }),

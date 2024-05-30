@@ -1,40 +1,55 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {ApiProperty} from "@nestjs/swagger";
+import {Column, Entity, ManyToOne, PrimaryColumn} from "typeorm";
+import {CarBrand} from "./car-brand.entity";
+import {CarMotoType} from "./enums";
 
 @Entity()
 export class Car {
-  @PrimaryGeneratedColumn("uuid")
-  id?: string;
+  @PrimaryColumn("uuid")
+  @ApiProperty({format: "uuid"})
+  id: string;
 
   @Column()
+  @ApiProperty()
   name: string;
 
   @Column()
+  @ApiProperty({required: false})
   description?: string;
 
   @Column()
-  brand: string;
-
-  @Column()
+  @ApiProperty()
   model: string;
 
   @Column()
+  @ApiProperty({minimum: 1})
   price: number;
 
-  @Column()
-  color: string;
+  @Column("varchar", {array: true})
+  @ApiProperty()
+  color: string[];
 
   @Column()
-  motorType: string;
+  @ApiProperty({enum: CarMotoType})
+  motorType: CarMotoType;
 
   @Column()
-  power: string;
+  @ApiProperty({minimum: 1})
+  power: number;
 
   @Column()
+  @ApiProperty({minimum: 1})
   placeNumber: number;
 
   @Column()
+  @ApiProperty()
   status: boolean;
 
   @Column()
+  @ApiProperty()
   type: string;
+
+  @ApiProperty({type: CarBrand})
+  @ManyToOne(() => CarBrand)
+  brand: CarBrand;
 }
