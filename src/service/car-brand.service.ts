@@ -1,9 +1,9 @@
+import {Repository} from "typeorm";
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
 import {CarBrand} from "src/model";
 import {PaginationParams} from "src/controller/decorators";
-import {createPagination} from "./utils/create-pagination";
+import {Criteria, findByCriteria} from "./utils/findByCriteria";
 
 @Injectable()
 export class CarBrandService {
@@ -12,15 +12,15 @@ export class CarBrandService {
     private readonly repository: Repository<CarBrand>
   ) {}
 
-  async findAll(pagination: PaginationParams): Promise<CarBrand[]> {
-    return await this.repository.find(createPagination(pagination));
+  async findAll(pagination: PaginationParams, criteria: Criteria<CarBrand>) {
+    return findByCriteria(this.repository, criteria, pagination);
   }
 
-  async findById(id: string): Promise<CarBrand> {
+  async findById(id: string) {
     return await this.repository.findOneBy({id});
   }
 
-  async saveOrUpdateAll(carBrands: CarBrand[]): Promise<CarBrand[]> {
+  async saveOrUpdateAll(carBrands: CarBrand[]) {
     return await this.repository.save(carBrands);
   }
 }

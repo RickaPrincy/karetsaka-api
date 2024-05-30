@@ -1,10 +1,11 @@
-import {Body, Controller, Get, Param, Put} from "@nestjs/common";
-import {ApiTags} from "@nestjs/swagger";
-import {ApiKaretsaka, ApiPagination} from "src/docs/decorators";
-import {Car, CarBrand} from "src/model";
+import {Body, Controller, Get, Param, Put, Query} from "@nestjs/common";
+import {ApiBody, ApiTags} from "@nestjs/swagger";
+import {ApiCriteria, ApiKaretsaka, ApiPagination} from "src/docs/decorators";
+import {CarBrand} from "src/model";
 import {CarBrandService} from "src/service/car-brand.service";
 import {CarsService} from "src/service/cars.service";
 import {Pagination, PaginationParams} from "./decorators";
+import {Authenticated} from "src/auth/decorators";
 
 @Controller()
 @ApiTags("Cars")
@@ -19,19 +20,33 @@ export class CarsController {
     return this.carService.findAll();
   }
 
-  @Get(":id")
+  @Get("cars/:id")
   findById(@Param("id") id: string) {
     return this.carService.findById(id);
   }
 
   @Put("/cars/brands")
+  @ApiBody({type: [CarBrand]})
+  @Authenticated()
+  @ApiKaretsaka({
+    operationId: "crupdateCarBrands",
+    type: [CarBrand],
+  })
   saveOrUpdate(@Body() carBrands: CarBrand[]) {
     return this.brandService.saveOrUpdateAll(carBrands);
   }
 
   @Get("/cars/brands")
   @ApiPagination()
-  getAllBrands(@Pagination() pagination: PaginationParams) {
-    return this.brandService.findAll(pagination);
+  @ApiCriteria({name: "name", type: "string"})
+  @ApiKaretsaka({
+    operationId: "getCarBrands",
+    type: [CarBrand],
+  })
+  getAllBrands(
+    @Pagination() pagination: PaginationParams,
+    @Query("name") name?: string
+  ) {
+    return this.brandService.findAll(pagination, {name});
   }
 }
