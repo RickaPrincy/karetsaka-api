@@ -3,7 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {User} from "src/model";
 import {PaginationParams} from "src/controller/decorators";
-import {createPagination} from "./utils/create-pagination";
+import {Criteria, findByCriteria} from "./utils/findByCriteria";
 
 @Injectable()
 export class UserService {
@@ -11,19 +11,22 @@ export class UserService {
     @InjectRepository(User) private readonly repository: Repository<User>
   ) {}
 
-  async findAll(pagination: PaginationParams): Promise<User[]> {
-    return await this.repository.find(createPagination(pagination));
+  async findAll(
+    pagination: PaginationParams,
+    criteria: Criteria<User>
+  ): Promise<User[]> {
+    return findByCriteria(this.repository, criteria, pagination);
   }
 
   async findById(id: string): Promise<User> {
-    return await this.repository.findOneBy({id: id});
+    return this.repository.findOneBy({id: id});
   }
 
   async saveUser(user: User): Promise<User> {
-    return await this.repository.save(user);
+    return this.repository.save(user);
   }
 
   async findByEmail(email: string): Promise<User> {
-    return await this.repository.findOneBy({email: email});
+    return this.repository.findOneBy({email: email});
   }
 }

@@ -1,6 +1,6 @@
-import {Body, Controller, Get, Param, Put} from "@nestjs/common";
+import {Body, Controller, Get, Param, Put, Query} from "@nestjs/common";
 import {ApiBody, ApiTags} from "@nestjs/swagger";
-import {ApiKaretsaka, ApiPagination} from "src/docs/decorators";
+import {ApiCriteria, ApiKaretsaka, ApiPagination} from "src/docs/decorators";
 import {Pagination, PaginationParams} from "./decorators";
 import {Authenticated, AuthenticatedUser} from "src/auth/decorators";
 import {User} from "src/model";
@@ -14,14 +14,17 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get("/users")
-  @Authenticated()
   @ApiPagination()
+  @ApiCriteria({name: "name", type: "string"})
   @ApiKaretsaka({
     operationId: "getUsers",
     type: [User],
   })
-  findAll(@Pagination() pagination: PaginationParams) {
-    return this.userService.findAll(pagination);
+  findAll(
+    @Pagination() pagination: PaginationParams,
+    @Query("name") name?: string
+  ) {
+    return this.userService.findAll(pagination, {name});
   }
 
   @Get("/users/:id")

@@ -2,12 +2,16 @@ import {ApiProperty} from "@nestjs/swagger";
 import {Column, Entity, PrimaryColumn} from "typeorm";
 
 @Entity()
-export class Dummy {
-  @ApiProperty({format: "uuid"})
+export class CarBrand {
   @PrimaryColumn()
+  @ApiProperty({format: "uuid"})
   id: string;
 
-  @ApiProperty()
   @Column()
+  @ApiProperty()
   name: string;
+
+  @Column({nullable: true})
+  @ApiProperty({required: false})
+  picture: string;
 }

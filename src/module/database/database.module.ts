@@ -12,6 +12,7 @@ import {Appointment, Car, Dummy, User, Image} from "src/model";
         type: "postgres",
         url: configService.get("DATABASE_URL"),
         entities: [Dummy, User, Car, Image, Appointment],
+        //WARNING: remove synchronize on prod
         synchronize: true,
       }),
     }),
