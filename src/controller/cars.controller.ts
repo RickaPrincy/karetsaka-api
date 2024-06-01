@@ -1,20 +1,46 @@
-import {Body, Controller, Get, Param, Put, Query} from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Param,
+  Put,
+  Query,
+} from "@nestjs/common";
 import {ApiBody, ApiTags} from "@nestjs/swagger";
 import {ApiCriteria, ApiKaretsaka, ApiPagination} from "src/docs/decorators";
 import {Car, CarBrand} from "src/model";
-import {CarBrandService} from "src/service/car-brand.service";
-import {CarsService} from "src/service/cars.service";
+import {CarBrandService, CarsService} from "src/service";
 import {Pagination, PaginationParams} from "./decorators";
 import {Authenticated} from "src/auth/decorators";
 import {CarMotoType} from "src/model/enums";
+import {CrupdateCar} from "./model";
+import {CarMapper} from "./mapper";
 
 @Controller()
 @ApiTags("Cars")
 export class CarsController {
   constructor(
+    private readonly carMapper: CarMapper,
     private readonly carService: CarsService,
     private readonly brandService: CarBrandService
   ) {}
+
+  @Put("/cars")
+  @ApiBody({type: CrupdateCar})
+  @Authenticated()
+  @ApiKaretsaka({
+    operationId: "crupdateCar",
+    type: Car,
+  })
+  async saveOrUpdate(@Body() crupdateCar: CrupdateCar) {
+    try {
+      const car = await this.carMapper.crupdateToDomain(crupdateCar);
+      return this.carService.saveOrUpdate(car);
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
 
   @Get("/cars")
   @ApiPagination()
@@ -70,14 +96,14 @@ export class CarsController {
   }
 
   @Put("/cars/brands")
-  @ApiBody({type: [CarBrand]})
+  @ApiBody({type: CarBrand})
   @Authenticated()
   @ApiKaretsaka({
     operationId: "crupdateCarBrands",
-    type: [CarBrand],
+    type: CarBrand,
   })
-  saveOrUpdate(@Body() carBrands: CarBrand[]) {
-    return this.brandService.saveOrUpdateAll(carBrands);
+  async saveOrUpdateBrands(@Body() carBrand: CarBrand) {
+    return this.brandService.saveOrUpdate(carBrand);
   }
 
   @Get("/cars/brands")
