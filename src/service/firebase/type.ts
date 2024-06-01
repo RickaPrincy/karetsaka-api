@@ -2,6 +2,7 @@ import admin from "firebase-admin";
 
 export import FirebaseAuth = admin.auth;
 export import FirebaseApp = admin.app;
+export import FirebaseStorage = admin.storage;
 
 export type FirebaseAuthUser = {
   uid: string;
