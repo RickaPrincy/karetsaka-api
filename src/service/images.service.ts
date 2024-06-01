@@ -19,7 +19,7 @@ export class ImagesService {
 
   async saveImage(file: File) {
     const image = new Image();
-    
+
     return this.repository.save(image);
   }
 }
