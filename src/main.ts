@@ -16,6 +16,7 @@ function setupSwagger<T>(app: INestApplication<T>) {
     .addTag("Security")
     .addTag("Users")
     .addTag("Cars")
+    .addTag("Images")
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, openapiConfig);

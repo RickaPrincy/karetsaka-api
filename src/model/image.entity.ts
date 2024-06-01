@@ -1,13 +1,17 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import { ApiProperty } from "@nestjs/swagger";
+import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Image {
-  @PrimaryGeneratedColumn("uuid")
-  id?: string;
+  @PrimaryColumn()
+  @ApiProperty({format: "uuid"})
+  id: string;
 
   @Column()
+  @ApiProperty()
   url: string;
 
   @Column()
+  @ApiProperty()
   productId: string;
 }

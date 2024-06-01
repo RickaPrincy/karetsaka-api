@@ -1,7 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import {config} from "dotenv";
 import admin from "firebase-admin";
-import {FirebaseApp, FirebaseAuth} from "./type";
+import {FirebaseApp, FirebaseAuth, FirebaseStorage} from "./type";
 
 config();
 
@@ -24,6 +24,10 @@ export class FirebaseConfigService {
 
   getAuth(): FirebaseAuth.Auth {
     return this.firebaseApp.auth();
+  }
+
+  getStorage(): FirebaseStorage.Storage {
+    return this.firebaseApp.storage();
   }
 
   private getConfig() {
