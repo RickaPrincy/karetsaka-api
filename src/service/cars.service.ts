@@ -19,7 +19,7 @@ export class CarsService {
     return this.repository.findOneBy({id});
   }
 
-  async saveCar(car: Car) {
+  async saveOrUpdate(car: Car) {
     return this.repository.save(car);
   }
 }

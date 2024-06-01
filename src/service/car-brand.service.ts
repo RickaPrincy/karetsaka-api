@@ -17,10 +17,10 @@ export class CarBrandService {
   }
 
   async findById(id: string) {
-    return await this.repository.findOneBy({id});
+    return this.repository.findOneBy({id});
   }
 
-  async saveOrUpdateAll(carBrands: CarBrand[]) {
-    return await this.repository.save(carBrands);
+  async saveOrUpdate(carBrand: CarBrand) {
+    return this.repository.save(carBrand);
   }
 }
