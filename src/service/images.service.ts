@@ -1,7 +1,7 @@
+import {Repository} from "typeorm";
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Image} from "src/model/image.entity";
-import {Repository} from "typeorm";
 
 @Injectable()
 export class ImagesService {
@@ -9,15 +9,17 @@ export class ImagesService {
     @InjectRepository(Image) private readonly repository: Repository<Image>
   ) {}
 
-  async findAll(): Promise<Image[]> {
-    return await this.repository.find();
+  async findAll() {
+    return this.repository.find();
   }
 
-  async findById(id: string): Promise<Image> {
-    return await this.repository.findOneBy({id: id});
+  async findById(id: string) {
+    return this.repository.findOneBy({id: id});
   }
 
-  async saveImage(image: Image): Promise<Image> {
-    return await this.repository.save(image);
+  async saveImage(file: File) {
+    const image = new Image();
+    
+    return this.repository.save(image);
   }
 }
