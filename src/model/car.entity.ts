@@ -5,7 +5,7 @@ import {CarMotoType} from "./enums";
 
 @Entity()
 export class Car {
-  @PrimaryColumn("uuid")
+  @PrimaryColumn()
   @ApiProperty({format: "uuid"})
   id: string;
 

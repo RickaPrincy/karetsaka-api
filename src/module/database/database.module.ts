@@ -13,7 +13,7 @@ import {Appointment, Car, Dummy, User, Image, CarBrand} from "src/model";
         url: configService.get("DATABASE_URL"),
         entities: [Dummy, User, CarBrand, Car, Image, Appointment],
         //WARNING: remove synchronize on prod
-        synchronize: true,
+        synchronize: true
       }),
     }),
   ],
