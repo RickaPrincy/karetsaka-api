@@ -16,10 +16,4 @@ export class ImagesService {
   async findById(id: string) {
     return this.repository.findOneBy({id: id});
   }
-
-  async saveImage(file: File) {
-    const image = new Image();
-
-    return this.repository.save(image);
-  }
 }

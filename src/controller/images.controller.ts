@@ -32,14 +32,4 @@ export class ImagesController {
   findById(@Param("id") id: string) {
     return this.service.findById(id);
   }
-
-  @Put()
-  @ApiKaretsaka({
-    operationId: "getImages",
-    type: [Image],
-  })
-  @UseInterceptors(FileInterceptor("file"))
-  saveImage(@UploadedFile() file: File) {
-    return this.service.saveImage(file);
-  }
 }
