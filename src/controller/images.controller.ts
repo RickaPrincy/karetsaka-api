@@ -17,7 +17,7 @@ export class ImagesController {
 
   @Get()
   @ApiKaretsaka({
-    operationId: "getImages",
+    operationId: "lool",
     type: [Image],
   })
   findAllByCarId() {
@@ -26,7 +26,7 @@ export class ImagesController {
 
   @Get(":id")
   @ApiKaretsaka({
-    operationId: "getImages",
+    operationId: "get",
     type: Image,
   })
   findById(@Param("id") id: string) {

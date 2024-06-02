@@ -86,15 +86,6 @@ export class CarsController {
     });
   }
 
-  @Get("cars/:id")
-  @ApiKaretsaka({
-    operationId: "getCarById",
-    type: Car,
-  })
-  findById(@Param("id") id: string) {
-    return this.carService.findById(id);
-  }
-
   @Put("/cars/brands")
   @ApiBody({type: CarBrand})
   @Authenticated()
@@ -118,5 +109,14 @@ export class CarsController {
     @Query("name") name?: string
   ) {
     return this.brandService.findAll(pagination, {name});
+  }
+
+  @Get("cars/:id")
+  @ApiKaretsaka({
+    operationId: "getCarById",
+    type: Car,
+  })
+  findById(@Param("id") id: string) {
+    return this.carService.findById(id);
   }
 }
