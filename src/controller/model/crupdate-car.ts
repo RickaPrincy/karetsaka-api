@@ -34,7 +34,6 @@ export class CrupdateCar {
   price: number;
 
   @ApiProperty()
-  @IsString()
   @IsArray()
   color: string[];
 
