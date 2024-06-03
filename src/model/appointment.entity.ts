@@ -6,7 +6,7 @@ import {
   PrimaryColumn,
 } from "typeorm";
 import {Car} from "./car.entity";
-import { ApiProperty } from "@nestjs/swagger";
+import {ApiProperty} from "@nestjs/swagger";
 
 @Entity()
 export class Appointment {
