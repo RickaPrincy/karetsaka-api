@@ -1,17 +1,10 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Put,
-  Query
-} from "@nestjs/common";
-import { ApiBody, ApiTags } from "@nestjs/swagger";
-import { ApiCriteria, ApiKaretsaka, ApiPagination } from "src/docs/decorators";
-import { Appointment } from "src/model";
+import {Body, Controller, Get, Param, Put, Query} from "@nestjs/common";
+import {ApiBody, ApiTags} from "@nestjs/swagger";
+import {ApiCriteria, ApiKaretsaka, ApiPagination} from "src/docs/decorators";
+import {Appointment} from "src/model";
 import {AppointmentsService} from "src/service/appointments.service";
-import { Pagination, PaginationParams } from "./decorators";
-import { Authenticated } from "src/auth/decorators";
+import {Pagination, PaginationParams} from "./decorators";
+import {Authenticated} from "src/auth/decorators";
 
 @Controller()
 @ApiTags("Appointments")
@@ -21,10 +14,7 @@ export class AppointmentsController {
   @Get("/appointments")
   @ApiPagination()
   @Authenticated()
-  @ApiCriteria(
-    {name: "status", type: "string"},
-    {name: "name", type: "string"}
-  )
+  @ApiCriteria({name: "status", type: "string"}, {name: "name", type: "string"})
   @ApiKaretsaka({
     operationId: "getAppointments",
     type: [Appointment],
