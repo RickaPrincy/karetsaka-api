@@ -1,7 +1,9 @@
+import {Repository} from "typeorm";
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Appointment} from "src/model/appointment.entity";
-import {Repository} from "typeorm";
+import {Appointment} from "src/model";
+import { PaginationParams } from "src/controller/decorators";
+import { Criteria, findByCriteria } from "./utils/findByCriteria";
 
 @Injectable()
 export class AppointmentsService {
@@ -10,15 +12,15 @@ export class AppointmentsService {
     private readonly repository: Repository<Appointment>
   ) {}
 
-  async findAll(): Promise<Appointment[]> {
-    return await this.repository.find();
+  async findAll(pagination: PaginationParams, criteria: Criteria){
+    return findByCriteria(this.repository, criteria, pagination);
   }
 
-  async findById(id: string): Promise<Appointment> {
-    return await this.repository.findOneBy({id: id});
+  async findById(id: string) {
+    return this.repository.findOneBy({id: id});
   }
 
-  async saveAppointment(appointment: Appointment): Promise<Appointment> {
-    return await this.repository.save(appointment);
+  async saveOrUpdate(appointment: Appointment) {
+    return this.repository.save(appointment);
   }
 }
