@@ -111,6 +111,16 @@ export class CarsController {
     return this.brandService.findAll(pagination, {name});
   }
 
+  @Get("/cars/brands/:id")
+  @ApiPagination()
+  @ApiKaretsaka({
+    operationId: "getCarBrandsById",
+    type: CarBrand,
+  })
+  getBrandById(@Param("id") id: string) {
+    return this.brandService.findById(id);
+  }
+
   @Get("cars/:id")
   @ApiKaretsaka({
     operationId: "getCarById",
