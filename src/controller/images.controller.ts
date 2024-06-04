@@ -1,5 +1,6 @@
 import {
   Controller,
+  Delete,
   Get,
   Param,
   Put,
@@ -10,6 +11,7 @@ import {ApiKaretsaka} from "src/docs/decorators";
 import {ImagesService} from "src/service/images.service";
 import {Image} from "src/model";
 import {FileInterceptor} from "@nestjs/platform-express";
+import {Authenticated} from "src/auth/decorators";
 
 @Controller("images")
 export class ImagesController {
@@ -31,5 +33,15 @@ export class ImagesController {
   })
   findById(@Param("id") id: string) {
     return this.service.findById(id);
+  }
+
+  @Delete("/images/:id")
+  @Authenticated()
+  @ApiKaretsaka({
+    operationId: "deleteImageById",
+    type: Image,
+  })
+  async deleteById(@Param("id") id: string) {
+    return this.service.deleteById(id);
   }
 }

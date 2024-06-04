@@ -23,4 +23,8 @@ export class CarBrandService {
   async saveOrUpdate(carBrand: CarBrand) {
     return this.repository.save(carBrand);
   }
+
+  async deleteById(id: string) {
+    return this.repository.delete({id: id});
+  }
 }

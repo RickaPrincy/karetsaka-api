@@ -23,4 +23,8 @@ export class AppointmentsService {
   async saveOrUpdate(appointment: Appointment) {
     return this.repository.save(appointment);
   }
+
+  async deleteById(id: string) {
+    return this.repository.delete({id: id});
+  }
 }

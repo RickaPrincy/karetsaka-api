@@ -3,7 +3,7 @@ import {ImagesController} from "../controller/images.controller";
 import {ImagesService} from "../service/images.service";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {Image} from "src/model/image.entity";
-import { FirebaseModule } from "./firebase.module";
+import {FirebaseModule} from "./firebase.module";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Image]), FirebaseModule],
