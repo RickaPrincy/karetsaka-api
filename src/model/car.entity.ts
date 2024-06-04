@@ -50,6 +50,6 @@ export class Car {
   type: string;
 
   @ApiProperty({type: CarBrand})
-  @ManyToOne(() => CarBrand)
+  @ManyToOne(() => CarBrand, (carBrand) => carBrand.cars)
   brand: CarBrand;
 }
