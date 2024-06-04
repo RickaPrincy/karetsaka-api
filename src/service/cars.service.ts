@@ -22,4 +22,8 @@ export class CarsService {
   async saveOrUpdate(car: Car) {
     return this.repository.save(car);
   }
+
+  async deleteById(id: string) {
+    return this.repository.delete({id: id});
+  }
 }

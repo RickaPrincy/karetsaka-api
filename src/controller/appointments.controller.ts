@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Put, Query} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Put, Query} from "@nestjs/common";
 import {ApiBody, ApiTags} from "@nestjs/swagger";
 import {ApiCriteria, ApiKaretsaka, ApiPagination} from "src/docs/decorators";
 import {Appointment} from "src/model";
@@ -48,5 +48,15 @@ export class AppointmentsController {
   })
   async saveOrUpdateBrands(@Body() appointment: Appointment) {
     return this.saveOrUpdateBrands(appointment);
+  }
+
+  @Delete("/appointments/:id")
+  @Authenticated()
+  @ApiKaretsaka({
+    operationId: "deleteAppointmentById",
+    type: Appointment,
+  })
+  async deleteById(@Param("id") id: string) {
+    return this.service.deleteById(id);
   }
 }
