@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   InternalServerErrorException,
   Param,
@@ -128,5 +129,15 @@ export class CarsController {
   })
   findById(@Param("id") id: string) {
     return this.carService.findById(id);
+  }
+
+  @Delete("/cars/:id")
+  @Authenticated()
+  @ApiKaretsaka({
+    operationId: "deleteCarById",
+    type: Car,
+  })
+  async deleteById(@Param("id") id: string) {
+    return this.carService.deleteById(id);
   }
 }
