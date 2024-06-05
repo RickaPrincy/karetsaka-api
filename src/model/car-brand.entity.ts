@@ -1,5 +1,6 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryColumn} from "typeorm";
+import {Car} from "./car.entity";
 
 @Entity()
 export class CarBrand {
@@ -14,4 +15,7 @@ export class CarBrand {
   @Column({nullable: true})
   @ApiProperty({required: false})
   picture: string;
+
+  @OneToMany(() => Car, (car) => car.brand)
+  cars: Car[];
 }
