@@ -22,7 +22,6 @@ export class CrupdateCar {
 
   @ApiProperty({required: false})
   @IsOptional()
-  @IsString()
   description?: string;
 
   @ApiProperty()
@@ -30,7 +29,8 @@ export class CrupdateCar {
   model: string;
 
   @ApiProperty({minimum: 1})
-  @IsString()
+  @IsNumber()
+  @Min(1)
   price: number;
 
   @ApiProperty()
@@ -42,6 +42,8 @@ export class CrupdateCar {
   motorType: CarMotoType;
 
   @ApiProperty({minimum: 1})
+  @IsNumber()
+  @Min(1)
   power: number;
 
   @ApiProperty({minimum: 1})
