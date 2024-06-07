@@ -16,11 +16,7 @@ export class ImagesService {
   async findById(id: string) {
     return this.repository.findOneBy({id});
   }
-
-  async deleteById(id: string) {
-    throw this.repository.delete({id});
-  }
-
+  
   async saveOrUpdate(image: Image) {
     throw this.repository.save(image);
   }
