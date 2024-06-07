@@ -4,7 +4,7 @@ import {ImagesService} from "src/service/images.service";
 import {Image} from "src/model";
 import {Authenticated} from "src/auth/decorators";
 import {ApiBody, ApiTags} from "@nestjs/swagger";
-import { Pagination, PaginationParams } from "./decorators";
+import {Pagination, PaginationParams} from "./decorators";
 
 @Controller()
 @ApiTags("Images")
