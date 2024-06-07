@@ -1,5 +1,5 @@
 import {Repository} from "typeorm";
-import {Injectable} from "@nestjs/common";
+import {Injectable, Logger} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Image} from "src/model/image.entity";
 import {createPagination} from "./utils/create-pagination";
@@ -20,10 +20,10 @@ export class ImagesService {
   }
 
   async saveOrUpdate(image: Image) {
-    throw this.repository.save(image);
+    return this.repository.save(image);
   }
 
   async deleteById(id: string) {
-    throw this.repository.delete({id: id});
+    return this.repository.delete({id});
   }
 }

@@ -25,6 +25,6 @@ export class CarBrandService {
   }
 
   async deleteById(id: string) {
-    return this.repository.delete({id: id});
+    return this.repository.delete({id});
   }
 }

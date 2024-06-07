@@ -5,6 +5,7 @@ import {Image} from "src/model";
 import {Authenticated} from "src/auth/decorators";
 import {ApiBody, ApiTags} from "@nestjs/swagger";
 import {Pagination, PaginationParams} from "./decorators";
+import {createPagination} from "src/service/utils/create-pagination";
 
 @Controller()
 @ApiTags("Images")
@@ -18,7 +19,7 @@ export class ImagesController {
     type: [Image],
   })
   findAllByCarId(@Pagination() pagination: PaginationParams) {
-    return this.service.findAll(paginatino);
+    return this.service.findAll(pagination);
   }
 
   @Get("/images/:id")
