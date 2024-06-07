@@ -10,4 +10,8 @@ export class Image {
   @Column()
   @ApiProperty()
   url: string;
+
+  @Column()
+  @ApiProperty()
+  name: string;
 }
