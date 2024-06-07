@@ -1,5 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, PrimaryColumn} from "typeorm";
 
 @Entity()
 export class Image {
@@ -10,8 +10,4 @@ export class Image {
   @Column()
   @ApiProperty()
   url: string;
-
-  @Column()
-  @ApiProperty()
-  productId: string;
 }

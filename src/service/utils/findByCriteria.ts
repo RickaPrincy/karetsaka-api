@@ -12,11 +12,10 @@ export const findByCriteria = async <T>(
 ) => {
   const queryBuilder = repository.createQueryBuilder();
   const {skip, take} = createPagination(pagination);
-
+  
   if (relation == "brand") {
     queryBuilder.leftJoinAndSelect("Car.brand", relation);
   }
-
   if (relation == "car") {
     queryBuilder.leftJoinAndSelect("Appointment.car", relation);
   }

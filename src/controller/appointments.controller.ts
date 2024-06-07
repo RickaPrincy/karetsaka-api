@@ -59,4 +59,14 @@ export class AppointmentsController {
   async deleteById(@Param("id") id: string) {
     return this.service.deleteById(id);
   }
+
+  @Delete("/appointments/:id")
+  @Authenticated()
+  @ApiKaretsaka({
+    operationId: "deleteAppointmentById",
+    type: Appointment,
+  })
+  async deleteById(@Param("id") id: string) {
+    return this.service.deleteById(id);
+  }
 }

@@ -1,32 +1,25 @@
-import {
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Put,
-  UploadedFile,
-  UseInterceptors,
-} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Put} from "@nestjs/common";
 import {ApiKaretsaka} from "src/docs/decorators";
 import {ImagesService} from "src/service/images.service";
 import {Image} from "src/model";
-import {FileInterceptor} from "@nestjs/platform-express";
 import {Authenticated} from "src/auth/decorators";
+import {ApiBody, ApiTags} from "@nestjs/swagger";
 
-@Controller("images")
+@Controller()
+@ApiTags("Images")
 export class ImagesController {
   constructor(private readonly service: ImagesService) {}
 
-  @Get()
+  @Get("/images")
   @ApiKaretsaka({
-    operationId: "lool",
+    operationId: "getImages",
     type: [Image],
   })
   findAllByCarId() {
     return this.service.findAll();
   }
 
-  @Get(":id")
+  @Get("/images/:id")
   @ApiKaretsaka({
     operationId: "get",
     type: Image,
@@ -43,5 +36,18 @@ export class ImagesController {
   })
   async deleteById(@Param("id") id: string) {
     return this.service.deleteById(id);
+  }
+
+  @Put("/images")
+  @Authenticated()
+  @ApiKaretsaka({
+    operationId: "saveOrUpdate",
+    type: Image,
+  })
+  @ApiBody({
+    type: Image,
+  })
+  async saveOrUpdate(@Body() image: Image) {
+    return this.service.saveOrUpdate(image);
   }
 }
