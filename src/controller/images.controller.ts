@@ -1,9 +1,10 @@
 import {Body, Controller, Delete, Get, Param, Put} from "@nestjs/common";
-import {ApiKaretsaka} from "src/docs/decorators";
+import {ApiKaretsaka, ApiPagination} from "src/docs/decorators";
 import {ImagesService} from "src/service/images.service";
 import {Image} from "src/model";
 import {Authenticated} from "src/auth/decorators";
 import {ApiBody, ApiTags} from "@nestjs/swagger";
+import { Pagination, PaginationParams } from "./decorators";
 
 @Controller()
 @ApiTags("Images")
@@ -11,12 +12,13 @@ export class ImagesController {
   constructor(private readonly service: ImagesService) {}
 
   @Get("/images")
+  @ApiPagination()
   @ApiKaretsaka({
     operationId: "getImages",
     type: [Image],
   })
-  findAllByCarId() {
-    return this.service.findAll();
+  findAllByCarId(@Pagination() pagination: PaginationParams) {
+    return this.service.findAll(paginatino);
   }
 
   @Get("/images/:id")
