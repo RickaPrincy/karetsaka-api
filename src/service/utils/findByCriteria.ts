@@ -8,13 +8,16 @@ export const findByCriteria = async <T>(
   repository: Repository<T>,
   criteria: Criteria,
   pagination: PaginationParams,
-  relation = false
+  relation?: string
 ) => {
   const queryBuilder = repository.createQueryBuilder();
   const {skip, take} = createPagination(pagination);
 
-  if (relation) {
-    queryBuilder.leftJoinAndSelect("Car.brand", "brand");
+  if (relation == "brand") {
+    queryBuilder.leftJoinAndSelect("Car.brand", relation);
+  }
+  if (relation == "car") {
+    queryBuilder.leftJoinAndSelect("Appointment.car", relation);
   }
 
   Object.entries(criteria).forEach(([key, value]) => {

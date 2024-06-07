@@ -47,7 +47,7 @@ export class AppointmentsController {
     type: Appointment,
   })
   async saveOrUpdateBrands(@Body() appointment: Appointment) {
-    return this.saveOrUpdateBrands(appointment);
+    return this.service.saveOrUpdate(appointment);
   }
 
   @Delete("/appointments/:id")

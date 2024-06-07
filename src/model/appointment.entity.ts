@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import {Car} from "./car.entity";
 import {ApiProperty} from "@nestjs/swagger";
+import {AppointmentStatus} from "./enums/appointment-status.enum";
 
 @Entity()
 export class Appointment {
@@ -39,8 +40,8 @@ export class Appointment {
   appointmentDate: string;
 
   @Column()
-  @ApiProperty()
-  status: string;
+  @ApiProperty({enum: AppointmentStatus})
+  status: AppointmentStatus;
 
   @ManyToOne(() => Car, {eager: true})
   car: Car;

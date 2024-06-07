@@ -17,11 +17,11 @@ export class ImagesService {
     return this.repository.findOneBy({id});
   }
 
-  async deleteById(id: string) {
-    throw this.repository.delete({id});
-  }
-
   async saveOrUpdate(image: Image) {
     throw this.repository.save(image);
+  }
+
+  async deleteById(id: string) {
+    throw this.repository.delete({id: id});
   }
 }
