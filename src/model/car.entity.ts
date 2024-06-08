@@ -29,7 +29,7 @@ export class Car {
   @ApiProperty()
   color: string[];
 
-  @Column()
+  @Column("varchar")
   @ApiProperty({enum: CarMotoType})
   motorType: CarMotoType;
 

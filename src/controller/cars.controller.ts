@@ -78,8 +78,7 @@ export class CarsController {
     @Query("priceTo") priceTo?: number
   ) {
     return this.carService.findAll(pagination, {
-      brandName,
-      motorType,
+      motor_type: brandName,
       type,
       model,
       priceFrom,
@@ -120,6 +119,16 @@ export class CarsController {
   })
   getBrandById(@Param("id") id: string) {
     return this.brandService.findById(id);
+  }
+
+  @Delete("/cars/brands/:id")
+  @ApiPagination()
+  @ApiKaretsaka({
+    operationId: "deleteCarBrand",
+    type: CarBrand,
+  })
+  delete(@Param("id") id: string) {
+    return this.brandService.deleteById(id);
   }
 
   @Get("cars/:id")
