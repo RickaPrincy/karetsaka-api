@@ -13,7 +13,7 @@ export class AppointmentsService {
   ) {}
 
   async findAll(pagination: PaginationParams, criteria: Criteria) {
-    return findByCriteria(this.repository, criteria, pagination, "car");
+    return findByCriteria(this.repository, criteria, pagination);
   }
 
   async findById(id: string) {
