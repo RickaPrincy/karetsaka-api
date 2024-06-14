@@ -1,12 +1,20 @@
-import {ApiProperty} from "@nestjs/swagger";
-import {Column, Entity, ManyToOne, PrimaryColumn} from "typeorm";
-import {CarBrand} from "./car-brand.entity";
-import {CarMotoType} from "./enums";
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
+} from "typeorm";
+import { CarBrand } from "./car-brand.entity";
+import { CarMotoType } from "./enums";
+import { Image } from "./image.entity";
 
 @Entity()
 export class Car {
   @PrimaryColumn()
-  @ApiProperty({format: "uuid"})
+  @ApiProperty({ format: "uuid" })
   id: string;
 
   @Column()
@@ -22,23 +30,23 @@ export class Car {
   model: string;
 
   @Column()
-  @ApiProperty({minimum: 1})
+  @ApiProperty({ minimum: 1 })
   price: number;
 
-  @Column("varchar", {array: true})
+  @Column("varchar", { array: true })
   @ApiProperty()
   color: string[];
 
   @Column("varchar")
-  @ApiProperty({enum: CarMotoType})
+  @ApiProperty({ enum: CarMotoType })
   motorType: CarMotoType;
 
   @Column()
-  @ApiProperty({minimum: 1})
+  @ApiProperty({ minimum: 1 })
   power: number;
 
   @Column()
-  @ApiProperty({minimum: 1})
+  @ApiProperty({ minimum: 1 })
   placeNumber: number;
 
   @Column()
@@ -49,10 +57,15 @@ export class Car {
   @ApiProperty()
   type: string;
 
-  @ApiProperty({type: CarBrand})
+  @ApiProperty({ type: CarBrand })
   @ManyToOne(() => CarBrand, (carBrand) => carBrand.cars, {
     eager: true,
     lazy: false,
   })
   brand: CarBrand;
+
+  @ApiProperty({ type: [Image] })
+  @ManyToMany(() => Image, { eager: true, onDelete: "RESTRICT" })
+  @JoinTable()
+  images: Image[];
 }

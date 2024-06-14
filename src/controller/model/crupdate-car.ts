@@ -61,4 +61,8 @@ export class CrupdateCar {
   @ApiProperty({format: "uuid"})
   @IsUUID()
   brandId: string;
+
+  @ApiProperty({type: "string", format: "uuid", isArray: true})
+  @IsArray()
+  imagesId: string;
 }
