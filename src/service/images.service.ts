@@ -1,9 +1,9 @@
 import {Repository} from "typeorm";
-import {Injectable, Logger} from "@nestjs/common";
+import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Image} from "src/model/image.entity";
-import {createPagination} from "./utils/create-pagination";
 import {PaginationParams} from "src/controller/decorators";
+import {Criteria, findByCriteria} from "./utils/findByCriteria";
 
 @Injectable()
 export class ImagesService {
@@ -11,16 +11,21 @@ export class ImagesService {
     @InjectRepository(Image) private readonly repository: Repository<Image>
   ) {}
 
-  async findAll(pagination: PaginationParams) {
-    return this.repository.find(createPagination(pagination));
+  async findAll(pagination: PaginationParams, criteria: Criteria) {
+    return findByCriteria(this.repository, criteria, pagination);
   }
 
   async findById(id: string) {
     return this.repository.findOneBy({id});
   }
 
-  async saveOrUpdate(image: Image) {
-    return this.repository.save(image);
+  async saveOrUpdateAll(images: Image[]) {
+    //FIXME
+    const results = [];
+    for (let img of images) {
+      results.push(await this.repository.save(img));
+    }
+    return results;
   }
 
   async deleteById(id: string) {

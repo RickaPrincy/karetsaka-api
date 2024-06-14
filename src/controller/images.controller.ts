@@ -1,11 +1,10 @@
-import {Body, Controller, Delete, Get, Param, Put} from "@nestjs/common";
-import {ApiKaretsaka, ApiPagination} from "src/docs/decorators";
+import {Body, Controller, Delete, Get, Param, Put, Query} from "@nestjs/common";
+import {ApiCriteria, ApiKaretsaka, ApiPagination} from "src/docs/decorators";
 import {ImagesService} from "src/service/images.service";
 import {Image} from "src/model";
 import {Authenticated} from "src/auth/decorators";
 import {ApiBody, ApiTags} from "@nestjs/swagger";
 import {Pagination, PaginationParams} from "./decorators";
-import {createPagination} from "src/service/utils/create-pagination";
 
 @Controller()
 @ApiTags("Images")
@@ -18,8 +17,15 @@ export class ImagesController {
     operationId: "getImages",
     type: [Image],
   })
-  findAllByCarId(@Pagination() pagination: PaginationParams) {
-    return this.service.findAll(pagination);
+  @ApiCriteria({
+    name: "name",
+    type: "string",
+  })
+  findAllByCarId(
+    @Pagination() pagination: PaginationParams,
+    @Query("name") name?: string
+  ) {
+    return this.service.findAll(pagination, {name});
   }
 
   @Get("/images/:id")
@@ -45,12 +51,12 @@ export class ImagesController {
   @Authenticated()
   @ApiKaretsaka({
     operationId: "saveOrUpdate",
-    type: Image,
+    type: [Image],
   })
   @ApiBody({
-    type: Image,
+    type: [Image],
   })
-  async saveOrUpdate(@Body() image: Image) {
-    return this.service.saveOrUpdate(image);
+  async saveOrUpdate(@Body() image: Image[]) {
+    return this.service.saveOrUpdateAll(image);
   }
 }

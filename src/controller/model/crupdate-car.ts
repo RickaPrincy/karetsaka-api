@@ -20,9 +20,8 @@ export class CrupdateCar {
   @IsString()
   name: string;
 
-  @ApiProperty({required: false})
-  @IsOptional()
-  description?: string;
+  @ApiProperty()
+  description: string;
 
   @ApiProperty()
   @IsString()

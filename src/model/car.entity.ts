@@ -14,8 +14,8 @@ export class Car {
   name: string;
 
   @Column()
-  @ApiProperty({required: false})
-  description?: string;
+  @ApiProperty()
+  description: string;
 
   @Column()
   @ApiProperty()
